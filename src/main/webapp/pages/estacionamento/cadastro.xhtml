@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <head>
+        <title>Cadastro de Estacionamento</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <div>Cadastro</div>
+        <div>
+            <h:form prependId="false">
+                <h:outputText value="#{cadastroEstacionamentoController.estacionamento.nome}" id="txt"/>
+                <p:commandButton actionListener="#{cadastroEstacionamentoController.teste()}" value="Teste" update="txt"/>
+            </h:form>
+        </div>
+    </body>
+</html>
