@@ -2,17 +2,31 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <head>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
         <title>Index</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+    </h:head>
     <body>
-        <div>EstacioneAki 2</div>
         
-        <h:form prependId="false">
-            <p:button outcome="/pages/estacionamento/cadastro" value="Novo Estacionamento"/>
-        </h:form>
-        
+        <ui:composition template="/pages/template/layout.xhtml">
+            <ui:define name="content">
+                <p>
+                    Olá, seja bem vindo ao EstacioneAki!
+                </p>
+                <p>
+                    Se você é um usuário baixe o nosso aplicativo<br />
+                    <h:graphicImage library="imagens" name="Google-Play-Store.png" height="50" />
+                </p>
+                <br />
+                <p>
+                    Se você possui um estacionamento, cadastre-se em nosso site e atraia mais clientes
+                    <h:form prependId="false">
+                        <p:button outcome="/pages/estacionamento/cadastro" value="Novo Estacionamento"/>
+                    </h:form>
+                </p>
+            </ui:define>
+        </ui:composition>
     </body>
 </html>

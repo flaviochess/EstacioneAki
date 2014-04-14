@@ -1,13 +1,31 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Index</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <h1>EstacioneAki!</h1>
+        <p:layout fullPage="true" >
+            <p:layoutUnit id="top" position="north" size="100">EstacioneAki</p:layoutUnit>
+            
+            <p:layoutUnit id="bottom" position="south" size="100">south</p:layoutUnit>
+            
+            <p:layoutUnit id="left" position="west" size="100">west</p:layoutUnit>
+            
+            <p:layoutUnit id="right" position="east" size="100">east</p:layoutUnit>
+            
+            <p:layoutUnit id="center" position="center" size="100">
+                <div>EstacioneAki</div>
+        
+                <h:form prependId="false">
+                    <p:button outcome="/pages/estacionamento/cadastro" value="Novo Estacionamento"/>
+                </h:form>
+            </p:layoutUnit>
+            
+        </p:layout>
+        
     </body>
 </html>

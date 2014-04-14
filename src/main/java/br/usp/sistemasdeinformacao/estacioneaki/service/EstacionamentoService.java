@@ -25,5 +25,14 @@ public class EstacionamentoService {
     public List<Estacionamento> list(){
         return estacionamentoDAO.list();
     }
+
+    @Transactional
+    public void persist(Estacionamento estacionamento){
+        estacionamentoDAO.persist(estacionamento);
+    }
+    
+    public Estacionamento update(Estacionamento estacionamento){
+        return estacionamento = (Estacionamento) estacionamentoDAO.update(estacionamento);
+    }
     
 }

@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import org.hibernate.SessionFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -21,8 +22,19 @@ public abstract class GenericDAO<T extends Entityable,PK extends Serializable> {
     
     public abstract SessionFactory getSessionFactory();
     
+    @Transactional(readOnly = true)
     public List<T> list(){
         return getSessionFactory().getCurrentSession().createQuery("from "+getClassType().getSimpleName()).list();
+    }
+    
+    @Transactional
+    public void persist(T entity){
+        getSessionFactory().getCurrentSession().persist(entity);
+    }
+    
+    @Transactional
+    public Entityable update(T entity){
+        return (T) getSessionFactory().getCurrentSession().merge(entity);
     }
     
     private Class<T> getClassType(){
