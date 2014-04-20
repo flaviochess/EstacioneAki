@@ -2,11 +2,17 @@ package br.usp.sistemasdeinformacao.estacioneaki.entity;
 
 //<editor-fold defaultstate="collapsed" desc="Imports">
 import br.usp.sistemasdeinformacao.estacioneaki.sistema.Entityable;
+
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 //</editor-fold>
 
 /**
@@ -16,7 +22,11 @@ import javax.persistence.Id;
 @Entity
 public class Estacionamento implements Serializable, Entityable{
     
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String nome;
@@ -26,11 +36,13 @@ public class Estacionamento implements Serializable, Entityable{
     private String bairro;
     private String cidade;
     private String uf;
-    private Integer cep;
+    private String cep;
     private Long telefone;
-    private Integer quantidadeVagas;
-    private String usuario;
+    private String email;
     private String senha;
+    @OneToMany
+    private List<Vaga> vagas = new ArrayList<Vaga>();
+    private BigDecimal valorPorHora;
 
     @Override
     public Integer getId() {
@@ -97,11 +109,11 @@ public class Estacionamento implements Serializable, Entityable{
         this.uf = uf;
     }
 
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
@@ -113,20 +125,12 @@ public class Estacionamento implements Serializable, Entityable{
         this.telefone = telefone;
     }
 
-    public Integer getQuantidadeVagas() {
-        return quantidadeVagas;
-    }
-
-    public void setQuantidadeVagas(Integer quantidadeVagas) {
-        this.quantidadeVagas = quantidadeVagas;
-    }
-
     public String getUsuario() {
-        return usuario;
+        return email;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getSenha() {
@@ -158,6 +162,25 @@ public class Estacionamento implements Serializable, Entityable{
         }
         return true;
     }
-    
-    
+
+	public void addVaga(Vaga vaga) {
+		vagas.add(vaga);
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public List<Vaga> getVagas() {
+		return vagas;
+	}
+
+	public BigDecimal getValorPorHora() {
+		return valorPorHora;
+	}
+
+	public void setValorPorHora(BigDecimal valorPorHora) {
+		this.valorPorHora = valorPorHora;
+	}
+
 }
