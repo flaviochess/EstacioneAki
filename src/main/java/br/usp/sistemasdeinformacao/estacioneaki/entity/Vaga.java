@@ -12,14 +12,17 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import br.usp.sistemasdeinformacao.estacioneaki.sistema.Entityable;
 
 /**
  * Vagas do estacionamento.
+ * 
  * @author Willian
  */
 @Entity
@@ -31,14 +34,17 @@ public class Vaga implements Serializable, Entityable {
 	@Id
 	private Integer id;
 	private String codigo;
-	@Temporal(TemporalType.TIMESTAMP)
+	@Type(type= "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime hrEntrada;
-	@Temporal(TemporalType.TIMESTAMP)
+	@Type(type= "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime hrSaida;
 	@Enumerated(EnumType.STRING)
 	private StatusVaga status;
 	@Enumerated(EnumType.STRING)
 	private TipoVaga tipoVaga;
+	@ManyToOne
+	@JoinColumn(name = "id_estacionamento")
+	private Estacionamento estacionamento;
 
 	public Vaga(String codigo, DateTime hrEntrada, TipoVaga tipoVaga) {
 		this.codigo = codigo;
@@ -47,17 +53,18 @@ public class Vaga implements Serializable, Entityable {
 		this.status = StatusVaga.VAGO;
 	}
 
-	public Vaga() {}
+	public Vaga() {
+	}
 
-	
 	/**
 	 * Altera status da Vaga
+	 * 
 	 * @author Willian
 	 */
 	public void alteraStatus() {
-		if (status.equals(StatusVaga.OCUPADO)){
-			status= StatusVaga.VAGO;
-		}else{
+		if (status.equals(StatusVaga.OCUPADO)) {
+			status = StatusVaga.VAGO;
+		} else {
 			status = StatusVaga.OCUPADO;
 		}
 	}
@@ -105,6 +112,14 @@ public class Vaga implements Serializable, Entityable {
 
 	public void setStatus(StatusVaga status) {
 		this.status = status;
+	}
+
+	public Estacionamento getEstacionamento() {
+		return estacionamento;
+	}
+
+	public void setEstacionamento(Estacionamento estacionamento) {
+		this.estacionamento = estacionamento;
 	}
 
 	@Override

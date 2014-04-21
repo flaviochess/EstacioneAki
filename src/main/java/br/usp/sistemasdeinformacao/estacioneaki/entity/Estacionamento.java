@@ -40,7 +40,7 @@ public class Estacionamento implements Serializable, Entityable{
     private Long telefone;
     private String email;
     private String senha;
-    @OneToMany
+    @OneToMany(mappedBy = "estacionamento")
     private List<Vaga> vagas = new ArrayList<Vaga>();
     private BigDecimal valorPorHora;
 
