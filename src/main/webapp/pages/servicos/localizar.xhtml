@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>Localizar Vagas</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+    </h:head>
+    <h:body>
+        <ui:composition template="/pages/template/layout.xhtml">
+            <ui:define name="content">
+                <h:form>
+			<center>
+				<h:panelGrid columns="3">
+					<h:inputText id="iPesquisa" size="115"/>
+					<h:commandButton value="Pesquisar" styleClass="ui-priority-primary">
+						<h:graphicImage name="img/lupa.png" />
+					</h:commandButton>
+
+				</h:panelGrid>
+
+				<p:gmap center="15, 15" zoom="2" type="NORMAL"
+					style="width:800px;height:600px " />
+			</center>
+		</h:form>
+                
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
