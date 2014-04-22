@@ -24,10 +24,10 @@ import javax.persistence.OneToMany;
 public class Estacionamento implements Serializable, Entityable{
     
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@Id
+    * 
+    */
+    private static final long serialVersionUID = 1L;
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String nome;
@@ -43,6 +43,7 @@ public class Estacionamento implements Serializable, Entityable{
     private String senha;
     @OneToMany(mappedBy = "estacionamento")
     private List<FuncionamentoEstacionamento> horarios;
+    @OneToMany(mappedBy = "estacionamento")
     private List<Vaga> vagas = new ArrayList<Vaga>();
     private BigDecimal valorPorHora;
 
