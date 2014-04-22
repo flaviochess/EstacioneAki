@@ -13,7 +13,7 @@
     
     <context:annotation-config />
     
-    <!-- Data Source Produção -->
+   <!--  Data Source Produção -->
     <bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />	
         <property name="jdbcUrl" value="jdbc:mysql://54.186.158.36:3306/EstacioneAki" />	
@@ -24,24 +24,36 @@
         <property name="minPoolSize" value="5" /> 
     </bean>
     
-    <!-- Data Source Local (configurar o HSQLDB)
+    
+    <!-- Data Source Local (configurar o HSQLDB) 
     <bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />	
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/Test" />	
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/estacioneaki" />	
         <property name="user" value="root" />	
         <property name="password" value="root" />	
         <property name="maxPoolSize" value="10" />
         <property name="maxStatements" value="0" />
         <property name="minPoolSize" value="5" /> 
-    </bean>
-    -->
-
+    </bean> -->
+    
+   <!-- Banco Willian 
+    <bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />	
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3307/estacioneaki" />	
+        <property name="user" value="root" />	
+        <property name="password" value="root" />	
+        <property name="maxPoolSize" value="10" />
+        <property name="maxStatements" value="0" />
+        <property name="minPoolSize" value="5" /> 
+    </bean>-->
+    
     <!-- Session Factory Declaration -->
     <bean id="SessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="DataSource" />
         <property name="annotatedClasses">
             <list>
                 <value>br.usp.sistemasdeinformacao.estacioneaki.entity.Estacionamento</value>
+                <value>br.usp.sistemasdeinformacao.estacioneaki.entity.Vaga</value>
                 <value>br.usp.sistemasdeinformacao.estacioneaki.entity.FuncionamentoEstacionamento</value>
             </list>
         </property>
@@ -63,3 +75,4 @@
     </bean>
 
 </beans>
+
