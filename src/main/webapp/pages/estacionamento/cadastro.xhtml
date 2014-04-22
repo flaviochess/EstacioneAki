@@ -16,69 +16,124 @@
                 <ui:define name="content">
                     <h:form prependId="false">
                         <p:growl id="growl" showDetail="true" sticky="true" />
-                        <p:panel header="Estacionamento">
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <h:outputLabel for="nome" value="Nome do Estacionamento:" />
-                                <p:inputText id="nome" value="#{cadastroEstacionamentoController.estacionamento.nome}" label="Nome do Estacionamento" required="true" />
-                                
-                                <h:outputLabel for="qtdVagas" value="Quantidade total de vagas:" />
-                                <p:inputText id="qtdVagas" value="#{cadastroEstacionamentoController.estacionamento.quantidadeVagas}" label="Quantidade total de vagas do estacionamento" required="true" />
-                            </h:panelGrid>
-                        </p:panel>
                         
-                        <p:panel header="Endereço">
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <h:outputLabel for="endereco" value="Endereço:" />
-                                <p:inputText id="endereco" value="#{cadastroEstacionamentoController.estacionamento.endereco}" label="Endereço" required="true" />
+                        <p:wizard>
+                            <p:tab id="principal" title="Principal">
+                                <p:panel header="Informações Gerais">
+                                    <h:messages errorClass="error"/> 
+                                    
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputLabel for="nome" value="Nome do Estacionamento:" />
+                                        <p:inputText id="nome" value="#{cadastroEstacionamentoController.estacionamento.nome}" label="Nome do Estacionamento" required="true" requiredMessage="Informe o nome do estacionamento" />
 
-                                <h:outputLabel for="numero" value="Número:" />
-                                <p:inputText id="numero" value="#{cadastroEstacionamentoController.estacionamento.numero}" label="Número" required="true" />
-
-                                <h:outputLabel for="complemento" value="Complemento:" />
-                                <p:inputText id="complemento" value="#{cadastroEstacionamentoController.estacionamento.complemento}" label="Complemento" />
-
-                                <h:outputLabel for="bairro" value="Bairro:" />
-                                <p:inputText id="bairro" value="#{cadastroEstacionamentoController.estacionamento.bairro}" label="Bairro" required="true" />
-
-                                <h:outputLabel for="cidade" value="Cidade:" />
-                                <p:inputText id="cidade" value="#{cadastroEstacionamentoController.estacionamento.cidade}" label="Cidade" required="true" />
-
-                                <h:outputLabel for="uf" value="Estado:" />
-                                <p:inputText id="uf" value="#{cadastroEstacionamentoController.estacionamento.uf}" label="Estado" required="true" />
-
-                                <h:outputLabel for="cep" value="CEP:" />
-                                <p:inputText id="cep" value="#{cadastroEstacionamentoController.estacionamento.cep}" label="CEP" required="true" />
-                            </h:panelGrid>    
-                        </p:panel>
+                                        <h:outputLabel for="qtdVagas" value="Quantidade total de vagas:" />
+                                        <p:inputText id="qtdVagas" value="#{cadastroEstacionamentoController.estacionamento.quantidadeVagas}" label="Quantidade total de vagas do estacionamento" required="true" requiredMessage="Informe a quantidade de vagas"/>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
                             
-                        <p:panel header="Contato">
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <h:outputLabel for="telefone" value="Telefone:" />
-                                <p:inputText id="telefone" value="#{cadastroEstacionamentoController.estacionamento.telefone}" label="Telefone" required="true" />
-                            </h:panelGrid>    
-                        </p:panel>
+                            <p:tab id="horarios" title="Horários">
+                                <p:panel header="Dias e horários de funcionamento">
+                                    <h:messages errorClass="error"/> 
+                                    
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:panelGrid columns="1" cellpadding="5">
+                                            <p:selectManyCheckbox id="dias" layout="pageDirection" value="#{cadastroEstacionamentoController.dias}">
+                                                <f:selectItem itemLabel="Segunda" itemValue="Segunda" />
+                                                <f:selectItem itemLabel="Terça" itemValue="Terca" />
+                                                <f:selectItem itemLabel="Quarta" itemValue="Quarta" />
+                                                <f:selectItem itemLabel="Quinta" itemValue="Quinta" />
+                                                <f:selectItem itemLabel="Sexta" itemValue="Sexta" />
+                                                <f:selectItem itemLabel="Sábado" itemValue="Sabado" />
+                                                <f:selectItem itemLabel="Domingo" itemValue="Domingo" />
+                                                <p:ajax update="horas"/>
+                                            </p:selectManyCheckbox>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2" cellpadding="5" id="horas">
+                                            <p:calendar value="#{cadastroEstacionamentoController.segHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(1)}" />
+                                            <p:calendar value="#{cadastroEstacionamentoController.segHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(1)}" />
+                                            
+                                            <p:calendar value="#{cadastroEstacionamentoController.terHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(2)}" />
+                                            <p:calendar value="#{cadastroEstacionamentoController.terHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(2)}" />
+                                            
+                                            <p:calendar value="#{cadastroEstacionamentoController.quaHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(3)}" />
+                                            <p:calendar value="#{cadastroEstacionamentoController.quaHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(3)}" />
+                                            
+                                            <p:calendar value="#{cadastroEstacionamentoController.quiHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(4)}" />
+                                            <p:calendar value="#{cadastroEstacionamentoController.quiHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(4)}" />
+                                            
+                                            <p:calendar value="#{cadastroEstacionamentoController.sexHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(5)}" />
+                                            <p:calendar value="#{cadastroEstacionamentoController.sexHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(5)}" />
+                                            
+                                            <p:calendar value="#{cadastroEstacionamentoController.sabHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(6)}" />
+                                            <p:calendar value="#{cadastroEstacionamentoController.sabHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(6)}" />
+                                            
+                                            <p:calendar value="#{cadastroEstacionamentoController.domHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(0)}" />
+                                            <p:calendar value="#{cadastroEstacionamentoController.domHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(0)}" />
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
                             
-                        <p:panel header="Dados de acesso">
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <h:outputLabel for="usuario" value="Usuário:" />
-                                <p:inputText id="usuario" value="#{cadastroEstacionamentoController.estacionamento.usuario}" label="Usuário" required="true" />
+                            <p:tab id="localizacao" title="Localização">
+                                <p:panel header="Endereço">
+                                    <h:messages errorClass="error"/> 
+                                    
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputLabel for="endereco" value="Endereço:" />
+                                        <p:inputText id="endereco" value="#{cadastroEstacionamentoController.estacionamento.endereco}" label="Endereço" required="true" />
 
-                                <h:outputLabel for="senha" value="Senha:" />
-                                <p:inputText id="senha" value="#{cadastroEstacionamentoController.estacionamento.senha}" label="Senha" type="password" required="true" />
-                            </h:panelGrid>
-                        </p:panel>
-                        
-                        <h:panelGrid columns="1" cellpadding="5">
-                            <p:commandButton value="Salvar" actionListener="#{cadastroEstacionamentoController.gravar}" update="growl" />
-                        </h:panelGrid>
+                                        <h:outputLabel for="numero" value="Número:" />
+                                        <p:inputText id="numero" value="#{cadastroEstacionamentoController.estacionamento.numero}" label="Número" required="true" />
+
+                                        <h:outputLabel for="complemento" value="Complemento:" />
+                                        <p:inputText id="complemento" value="#{cadastroEstacionamentoController.estacionamento.complemento}" label="Complemento" />
+
+                                        <h:outputLabel for="bairro" value="Bairro:" />
+                                        <p:inputText id="bairro" value="#{cadastroEstacionamentoController.estacionamento.bairro}" label="Bairro" required="true" />
+
+                                        <h:outputLabel for="cidade" value="Cidade:" />
+                                        <p:inputText id="cidade" value="#{cadastroEstacionamentoController.estacionamento.cidade}" label="Cidade" required="true" />
+
+                                        <h:outputLabel for="uf" value="Estado:" />
+                                        <p:inputText id="uf" value="#{cadastroEstacionamentoController.estacionamento.uf}" label="Estado" required="true" />
+
+                                        <h:outputLabel for="cep" value="CEP:" />
+                                        <p:inputText id="cep" value="#{cadastroEstacionamentoController.estacionamento.cep}" label="CEP" required="true" />
+                                    </h:panelGrid>    
+                                </p:panel>
+                            </p:tab>
+                            
+                            <p:tab id="contato" title="Contato">
+                                <p:panel header="Contato">
+                                    <h:messages errorClass="error"/> 
+                                    
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputLabel for="telefone" value="Telefone:" />
+                                        <p:inputText id="telefone" value="#{cadastroEstacionamentoController.estacionamento.telefone}" label="Telefone" required="true" />
+                                    </h:panelGrid>    
+                                </p:panel>
+                            </p:tab>
+                            
+                            <p:tab id="acesso" title="Dados de Acesso">
+                                <p:panel header="Dados de acesso">
+                                    <h:messages errorClass="error"/> 
+                                    
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputLabel for="usuario" value="Usuário:" />
+                                        <p:inputText id="usuario" value="#{cadastroEstacionamentoController.estacionamento.usuario}" label="Usuário" required="true" />
+
+                                        <h:outputLabel for="senha" value="Senha:" />
+                                        <p:inputText id="senha" value="#{cadastroEstacionamentoController.estacionamento.senha}" label="Senha" type="password" required="true" />
+                                    </h:panelGrid>
+                                    
+                                    <p:commandButton value="Salvar" actionListener="#{cadastroEstacionamentoController.gravar}" update="growl" />
+                                </p:panel>
+                            </p:tab>
+                        </p:wizard>
                     </h:form>
                 </ui:define>
             </ui:composition>
-            
-            <!--<h:form prependId="false">
-                <h:outputText value="# {cadastroEstacionamentoController.estacionamento.nome}" id="txt"/>
-                <p:commandButton actionListener="# {cadastroEstacionamentoController.teste()}" value="Teste" update="txt"/>
-            </h:form>-->
         </div>
     </body>
 </html>

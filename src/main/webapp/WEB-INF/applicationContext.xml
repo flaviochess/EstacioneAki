@@ -42,6 +42,7 @@
         <property name="annotatedClasses">
             <list>
                 <value>br.usp.sistemasdeinformacao.estacioneaki.entity.Estacionamento</value>
+                <value>br.usp.sistemasdeinformacao.estacioneaki.entity.FuncionamentoEstacionamento</value>
             </list>
         </property>
         <property name="hibernateProperties">

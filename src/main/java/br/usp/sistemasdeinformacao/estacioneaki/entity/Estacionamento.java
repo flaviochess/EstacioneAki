@@ -3,10 +3,12 @@ package br.usp.sistemasdeinformacao.estacioneaki.entity;
 //<editor-fold defaultstate="collapsed" desc="Imports">
 import br.usp.sistemasdeinformacao.estacioneaki.sistema.Entityable;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 //</editor-fold>
 
 /**
@@ -31,6 +33,8 @@ public class Estacionamento implements Serializable, Entityable{
     private Integer quantidadeVagas;
     private String usuario;
     private String senha;
+    @OneToMany(mappedBy = "estacionamento")
+    private List<FuncionamentoEstacionamento> horarios;
 
     @Override
     public Integer getId() {
@@ -135,6 +139,14 @@ public class Estacionamento implements Serializable, Entityable{
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public List<FuncionamentoEstacionamento> getHorarios() {
+        return horarios;
+    }
+
+    public void setHorarios(List<FuncionamentoEstacionamento> horarios) {
+        this.horarios = horarios;
     }
 
     @Override
