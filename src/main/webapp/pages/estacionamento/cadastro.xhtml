@@ -15,7 +15,7 @@
             <ui:composition template="/pages/template/layout.xhtml">
                 <ui:define name="content">
                     <h:form prependId="false">
-                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        <p:growl id="growl" showDetail="true" sticky="false" />
                         
                         <p:wizard>
                             <p:tab id="principal" title="Principal">
@@ -26,14 +26,21 @@
                                         <h:outputLabel for="nome" value="Nome do Estacionamento:" />
                                         <p:inputText id="nome" value="#{cadastroEstacionamentoController.estacionamento.nome}" label="Nome do Estacionamento" required="true" requiredMessage="Informe o nome do estacionamento" />
 
-                                        <h:outputLabel for="qtdVagas" value="Quantidade total de vagas:" />
-                                        <p:inputText id="qtdVagas" value="#{cadastroEstacionamentoController.estacionamento.quantidadeVagas}" label="Quantidade total de vagas do estacionamento" required="true" requiredMessage="Informe a quantidade de vagas"/>
+                                        <h:outputLabel for="valorHora" value="Valor da hora inicial:" />
+                                        <p:inputText id="valorHora" value="#{cadastroEstacionamentoController.estacionamento.valorHora}" label="Valor da hora inicial" required="true" requiredMessage="Informe o valor da hora inicial">
+                                            <f:converter converterId="Moeda" />
+                                        </p:inputText>
+                                        
+                                        <h:outputLabel for="valorHoraAdicional" value="Valor da hora adicional:" />
+                                        <p:inputText id="valorHoraAdicional" value="#{cadastroEstacionamentoController.estacionamento.valorHoraAdicional}" label="Valor da hora adicional" required="true" requiredMessage="Informe o valor da hora adicional">
+                                            <f:converter converterId="Moeda" />
+                                        </p:inputText>
                                     </h:panelGrid>
                                 </p:panel>
                             </p:tab>
                             
-                            <p:tab id="horarios" title="Horários">
-                                <p:panel header="Dias e horários de funcionamento">
+                            <p:tab id="diasFuncionamento" title="Dias de Funcionamento">
+                                <p:panel header="Dias de funcionamento">
                                     <h:messages errorClass="error"/> 
                                     
                                     <h:panelGrid columns="2" cellpadding="5">
@@ -49,28 +56,42 @@
                                                 <p:ajax update="horas"/>
                                             </p:selectManyCheckbox>
                                         </h:panelGrid>
-                                        <h:panelGrid columns="2" cellpadding="5" id="horas">
-                                            <p:calendar value="#{cadastroEstacionamentoController.segHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(1)}" />
-                                            <p:calendar value="#{cadastroEstacionamentoController.segHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(1)}" />
-                                            
-                                            <p:calendar value="#{cadastroEstacionamentoController.terHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(2)}" />
-                                            <p:calendar value="#{cadastroEstacionamentoController.terHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(2)}" />
-                                            
-                                            <p:calendar value="#{cadastroEstacionamentoController.quaHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(3)}" />
-                                            <p:calendar value="#{cadastroEstacionamentoController.quaHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(3)}" />
-                                            
-                                            <p:calendar value="#{cadastroEstacionamentoController.quiHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(4)}" />
-                                            <p:calendar value="#{cadastroEstacionamentoController.quiHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(4)}" />
-                                            
-                                            <p:calendar value="#{cadastroEstacionamentoController.sexHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(5)}" />
-                                            <p:calendar value="#{cadastroEstacionamentoController.sexHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(5)}" />
-                                            
-                                            <p:calendar value="#{cadastroEstacionamentoController.sabHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(6)}" />
-                                            <p:calendar value="#{cadastroEstacionamentoController.sabHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(6)}" />
-                                            
-                                            <p:calendar value="#{cadastroEstacionamentoController.domHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(0)}" />
-                                            <p:calendar value="#{cadastroEstacionamentoController.domHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(0)}" />
-                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+                            
+                            <p:tab id="horarios" title="Horário">
+                                <p:panel header="Dias de funcionamento">
+                                    <h:messages errorClass="error"/> 
+                                        
+                                    <h:panelGrid columns="3" cellpadding="5" id="horas">
+                                        <h:outputLabel value="Segunda:" />
+                                        <p:calendar value="#{cadastroEstacionamentoController.segHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(1)}" />
+                                        <p:calendar value="#{cadastroEstacionamentoController.segHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(1)}" />
+
+                                        <h:outputLabel value="Terça:" />
+                                        <p:calendar value="#{cadastroEstacionamentoController.terHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(2)}" />
+                                        <p:calendar value="#{cadastroEstacionamentoController.terHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(2)}" />
+
+                                        <h:outputLabel value="Quarta:" />
+                                        <p:calendar value="#{cadastroEstacionamentoController.quaHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(3)}" />
+                                        <p:calendar value="#{cadastroEstacionamentoController.quaHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(3)}" />
+
+                                        <h:outputLabel value="Quinta:" />
+                                        <p:calendar value="#{cadastroEstacionamentoController.quiHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(4)}" />
+                                        <p:calendar value="#{cadastroEstacionamentoController.quiHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(4)}" />
+
+                                        <h:outputLabel value="Sexta:" />
+                                        <p:calendar value="#{cadastroEstacionamentoController.sexHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(5)}" />
+                                        <p:calendar value="#{cadastroEstacionamentoController.sexHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(5)}" />
+
+                                        <h:outputLabel value="Sábado:" />
+                                        <p:calendar value="#{cadastroEstacionamentoController.sabHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(6)}" />
+                                        <p:calendar value="#{cadastroEstacionamentoController.sabHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(6)}" />
+
+                                        <h:outputLabel value="Domingo:" />
+                                        <p:calendar value="#{cadastroEstacionamentoController.domHoraInicio}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(0)}" />
+                                        <p:calendar value="#{cadastroEstacionamentoController.domHoraFim}" pattern="HH:mm" timeOnly="true" disabled="#{!cadastroEstacionamentoController.horasVisivel.get(0)}" />
                                     </h:panelGrid>
                                 </p:panel>
                             </p:tab>
@@ -120,14 +141,14 @@
                                     <h:messages errorClass="error"/> 
                                     
                                     <h:panelGrid columns="2" cellpadding="5">
-                                        <h:outputLabel for="usuario" value="Usuário:" />
-                                        <p:inputText id="usuario" value="#{cadastroEstacionamentoController.estacionamento.usuario}" label="Usuário" required="true" />
+                                        <h:outputLabel for="usuario" value="E-mail:" />
+                                        <p:inputText id="usuario" value="#{cadastroEstacionamentoController.estacionamento.email}" label="E-mail" required="true" requiredMessage="Informe um e-mail"/>
 
                                         <h:outputLabel for="senha" value="Senha:" />
-                                        <p:inputText id="senha" value="#{cadastroEstacionamentoController.estacionamento.senha}" label="Senha" type="password" required="true" />
+                                        <p:inputText id="senha" value="#{cadastroEstacionamentoController.estacionamento.senha}" label="Senha" type="password" required="true" requiredMessage="Informe a senha" />
                                     </h:panelGrid>
                                     
-                                    <p:commandButton value="Salvar" actionListener="#{cadastroEstacionamentoController.gravar}" update="growl" />
+                                    <p:commandButton value="Salvar" action="#{cadastroEstacionamentoController.gravar}" update="growl" />
                                 </p:panel>
                             </p:tab>
                         </p:wizard>

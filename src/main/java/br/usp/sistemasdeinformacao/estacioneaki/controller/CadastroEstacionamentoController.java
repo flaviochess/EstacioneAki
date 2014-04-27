@@ -9,11 +9,9 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.AjaxBehaviorEvent;
 
 /**
  *
@@ -53,11 +51,12 @@ public class CadastroEstacionamentoController {
         }
         dias = new ArrayList();
     }
-
-    public void gravar(ActionEvent actionEvent){
+    
+    public String gravar(){
         FacesContext context = FacesContext.getCurrentInstance();
         estacionamentoService.persist(estacionamento);
-        context.addMessage(null, new FacesMessage("Sucesso", "Cadastro realizado com sucesso."));
+        context.addMessage(null, new FacesMessage("Estacionamento: "+estacionamento.getNome()+" cadastro com sucesso", "Cadastro realizado com sucesso."));
+        return "/pages/index";
     }
     
     public Estacionamento getEstacionamento() {

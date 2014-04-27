@@ -39,6 +39,8 @@ public class Estacionamento implements Serializable, Entityable{
     private String uf;
     private String cep;
     private Long telefone;
+    private Double valorHora;
+    private Double valorHoraAdicional;
     private String email;
     private String senha;
     @OneToMany(mappedBy = "estacionamento")
@@ -128,8 +130,20 @@ public class Estacionamento implements Serializable, Entityable{
         this.telefone = telefone;
     }
 
-    public String getUsuario() {
-        return email;
+    public Double getValorHora() {
+        return valorHora;
+    }
+
+    public void setValorHora(Double valorHora) {
+        this.valorHora = valorHora;
+    }
+
+    public Double getValorHoraAdicional() {
+        return valorHoraAdicional;
+    }
+
+    public void setValorHoraAdicional(Double valorHoraAdicional) {
+        this.valorHoraAdicional = valorHoraAdicional;
     }
 
     public void setEmail(String email) {
