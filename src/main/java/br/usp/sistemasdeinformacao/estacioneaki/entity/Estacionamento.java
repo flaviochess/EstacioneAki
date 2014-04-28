@@ -10,16 +10,19 @@ import java.util.List;
 
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
 //</editor-fold>
 
 /**
  *
  * @author flavio
  */
+@XmlRootElement
 @Entity
 public class Estacionamento implements Serializable, Entityable{
     
@@ -43,7 +46,7 @@ public class Estacionamento implements Serializable, Entityable{
     private Double valorHoraAdicional;
     private String email;
     private String senha;
-    @OneToMany(mappedBy = "estacionamento")
+    @OneToMany(mappedBy = "estacionamento", fetch = FetchType.EAGER)
     private List<FuncionamentoEstacionamento> horarios;
     @OneToMany(mappedBy = "estacionamento")
     private List<Vaga> vagas = new ArrayList<Vaga>();

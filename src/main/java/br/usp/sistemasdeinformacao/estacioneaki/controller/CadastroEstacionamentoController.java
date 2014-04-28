@@ -55,7 +55,7 @@ public class CadastroEstacionamentoController {
     public String gravar(){
         FacesContext context = FacesContext.getCurrentInstance();
         estacionamentoService.persist(estacionamento);
-        context.addMessage(null, new FacesMessage("Estacionamento: "+estacionamento.getNome()+" cadastro com sucesso", "Cadastro realizado com sucesso."));
+        context.addMessage(null, new FacesMessage("Estacionamento: "+estacionamento.getNome()+" cadastrado com sucesso", "Cadastro realizado com sucesso."));
         return "/pages/index";
     }
     
